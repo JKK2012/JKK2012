@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simplistic. — Luxury Streetwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl font-black tracking-widest uppercase">simplistic.</a>
+            <nav class="hidden md:flex space-x-8 text-sm tracking-widest uppercase font-light">
+                <a href="#collection" class="hover:text-neutral-400 transition">Collections</a>
+                <a href="#about" class="hover:text-neutral-400 transition">About</a>
+                <a href="#store" class="hover:text-neutral-400 transition">Store</a>
+            </nav>
+            <div class="flex items-center space-x-4 text-sm tracking-widest uppercase font-light">
+                <a href="#" class="hover:text-neutral-400 transition">Cart (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative h-screen flex items-center justify-center bg-neutral-950">
+        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center"></div>
+        
+        <div class="relative z-10 text-center px-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 mb-4">Drop 01 / Essentials</p>
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-8">
+                LESS IS LOUD.
+            </h1>
+            <a href="#collection" class="inline-block border border-white text-black bg-white hover:bg-transparent hover:text-white transition px-8 py-4 text-xs tracking-[0.2em] uppercase font-bold">
+                Shop the Drop
+            </a>
+        </div>
+    </section>
+
+    <section id="collection" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Curated Pieces</p>
+                <h2 class="text-3xl font-bold uppercase tracking-tight">Drop 01</h2>
+            </div>
+            <a href="#" class="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-neutral-400 hover:border-neutral-400 transition">View All</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="group cursor-pointer">
+                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Heavyweight Hoodie" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-black text-[10px] tracking-widest uppercase px-3 py-1 font-bold">Sold Out</span>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold uppercase tracking-wide text-sm">01. Heavyweight Hoodie</h3>
+                        <p class="text-xs text-neutral-500 uppercase mt-1">Matte Black / 500 GSM</p>
+                    </div>
+                    <p class="text-sm font-light">$180</p>
+                </div>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Minimalist Tee" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold uppercase tracking-wide text-sm">02. Box Fit Tee</h3>
+                        <p class="text-xs text-neutral-500 uppercase mt-1">Off-White / Organic Cotton</p>
+                    </div>
+                    <p class="text-sm font-light">$85</p>
+                </div>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80" alt="Cargo Pants" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold uppercase tracking-wide text-sm">03. Utility Cargo</h3>
+                        <p class="text-xs text-neutral-500 uppercase mt-1">Midnight / Water Resistant</p>
+                    </div>
+                    <p class="text-sm font-light">$210</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="bg-neutral-950 py-24 border-t border-b border-white/5">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <span class="text-xs uppercase tracking-[0.3em] text-neutral-500">Philosophy</span>
+            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight my-6">Radical Simplicity.</h2>
+            <p class="text-neutral-400 font-light leading-relaxed text-sm md:text-base max-w-2xl mx-auto">
+                We believe streetwear has become too crowded. Too noisy. **simplistic** is our rebellion against the chaos. We focus purely on aggressive silhouettes, meticulous fabric sourcing, and architectural cuts. No massive logos. No gimmicks. Just pure form.
+            </p>
+        </div>
+    </section>
+
+    <footer class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h3 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Stay Notified</h3>
+                <p class="text-sm font-light text-neutral-400 mb-6">Receive priority access to limited edition drops.</p>
+                <form class="flex max-w-md">
+                    <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-xs tracking-widest uppercase focus:outline-none focus:border-white w-full">
+                    <button type="submit" class="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition">Join</button>
+                </form>
+            </div>
+            <div class="flex justify-start md:justify-end space-x-16">
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-xs tracking-wider uppercase text-neutral-400">
+                        <li><a href="#" class="hover:text-white transition">Shipping</a></li>
+                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Social</h4>
+                    <ul class="space-y-2 text-xs tracking-wider uppercase text-neutral-400">
+                        <li><a href="#" class="hover:text-white transition">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between text-[10px] tracking-widest uppercase text-neutral-600">
+            <p>&copy; 2026 simplistic. All rights reserved.</p>
+            <p>Designed for the minimalists.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
