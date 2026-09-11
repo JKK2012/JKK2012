@@ -1,144 +1,993 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>simplistic. — Luxury Streetwear</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simplistic. — Luxury Streetwear</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    .product-card img {
+      transition: transform .6s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .fade {
+      animation: fade .3s ease;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cart-panel {
+      transition: transform .35s ease;
+    }
+
+    .modal {
+      transition: opacity .25s ease;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: white;
+    }
+  </style>
 </head>
-<body class="overflow-x-hidden">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-2xl font-black tracking-widest uppercase">simplistic.</a>
-            <nav class="hidden md:flex space-x-8 text-sm tracking-widest uppercase font-light">
-                <a href="#collection" class="hover:text-neutral-400 transition">Collections</a>
-                <a href="#about" class="hover:text-neutral-400 transition">About</a>
-                <a href="#store" class="hover:text-neutral-400 transition">Store</a>
-            </nav>
-            <div class="flex items-center space-x-4 text-sm tracking-widest uppercase font-light">
-                <a href="#" class="hover:text-neutral-400 transition">Cart (0)</a>
-            </div>
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="fixed top-0 left-0 w-full z-50 bg-black/85 backdrop-blur-xl border-b border-white/10">
+
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+    <a href="#" class="text-2xl font-black tracking-widest">
+      simplistic.
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="hidden md:flex gap-8 text-xs tracking-[0.2em] uppercase">
+      <a href="#collection" class="hover:text-neutral-400 transition">Shop</a>
+      <a href="#about" class="hover:text-neutral-400 transition">About</a>
+      <a href="#contact" class="hover:text-neutral-400 transition">Contact</a>
+    </nav>
+
+    <button
+      onclick="openCart()"
+      class="text-xs tracking-[0.2em] uppercase hover:text-neutral-400 transition">
+      Cart (<span id="cart-count">0</span>)
+    </button>
+
+  </div>
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <div
+    class="absolute inset-0 bg-cover bg-center opacity-40"
+    style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1920&q=85')">
+  </div>
+
+  <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black"></div>
+
+  <div class="relative z-10 text-center px-6">
+
+    <p class="text-xs uppercase tracking-[0.4em] text-neutral-400 mb-5">
+      Drop 01 / Essentials
+    </p>
+
+    <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-8">
+      LESS IS<br>LOUD.
+    </h1>
+
+    <p class="max-w-lg mx-auto text-sm text-neutral-400 mb-8">
+      Premium essentials engineered for everyday movement.
+      No noise. No unnecessary branding. Just form.
+    </p>
+
+    <a
+      href="#collection"
+      class="inline-block bg-white text-black px-10 py-4 text-xs tracking-[0.25em] uppercase font-bold hover:bg-neutral-300 transition">
+      Shop the collection
+    </a>
+
+  </div>
+</section>
+
+
+<!-- ================= COLLECTION ================= -->
+
+<section id="collection" class="max-w-7xl mx-auto px-6 py-24">
+
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+
+    <div>
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-500 mb-3">
+        Curated Pieces
+      </p>
+
+      <h2 class="text-4xl font-black tracking-tight">
+        DROP 01
+      </h2>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+
+      <button onclick="filterProducts('all')"
+        class="filter-btn bg-white text-black px-5 py-2 text-xs uppercase tracking-widest">
+        All
+      </button>
+
+      <button onclick="filterProducts('tops')"
+        class="filter-btn border border-neutral-700 px-5 py-2 text-xs uppercase tracking-widest hover:border-white">
+        Tops
+      </button>
+
+      <button onclick="filterProducts('bottoms')"
+        class="filter-btn border border-neutral-700 px-5 py-2 text-xs uppercase tracking-widest hover:border-white">
+        Bottoms
+      </button>
+
+      <button onclick="filterProducts('outerwear')"
+        class="filter-btn border border-neutral-700 px-5 py-2 text-xs uppercase tracking-widest hover:border-white">
+        Outerwear
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- Products -->
+
+  <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7"></div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about" class="border-t border-b border-white/10 bg-neutral-950 py-28">
+
+  <div class="max-w-4xl mx-auto text-center px-6">
+
+    <p class="text-xs uppercase tracking-[0.4em] text-neutral-500">
+      Our Philosophy
+    </p>
+
+    <h2 class="text-4xl md:text-6xl font-black mt-5 mb-7">
+      RADICAL<br>SIMPLICITY.
+    </h2>
+
+    <p class="text-neutral-400 leading-relaxed max-w-2xl mx-auto">
+      simplistic. exists to remove the unnecessary. We create premium
+      streetwear using considered silhouettes, quality fabrics and
+      understated details. No massive logos. No gimmicks. Just clothing
+      designed to speak through its form.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ================= NEWSLETTER ================= -->
+
+<section class="max-w-7xl mx-auto px-6 py-24">
+
+  <div class="border border-white/10 p-8 md:p-14 flex flex-col md:flex-row md:items-center md:justify-between gap-10">
+
+    <div>
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-500 mb-3">
+        Stay Notified
+      </p>
+
+      <h2 class="text-3xl font-bold">
+        Be first in line.
+      </h2>
+
+      <p class="text-sm text-neutral-500 mt-3">
+        Get early access to new drops and limited releases.
+      </p>
+    </div>
+
+    <form onsubmit="subscribe(event)" class="flex w-full md:w-auto">
+
+      <input
+        id="email"
+        type="email"
+        required
+        placeholder="YOUR EMAIL"
+        class="bg-neutral-900 border border-neutral-800 px-5 py-4 text-xs tracking-widest w-full md:w-72">
+
+      <button
+        class="bg-white text-black px-7 py-4 text-xs tracking-widest uppercase font-bold hover:bg-neutral-300">
+        Join
+      </button>
+
+    </form>
+
+  </div>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="contact" class="border-t border-white/10">
+
+  <div class="max-w-7xl mx-auto px-6 py-16">
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+
+      <div class="md:col-span-2">
+
+        <h2 class="text-2xl font-black tracking-widest">
+          simplistic.
+        </h2>
+
+        <p class="text-neutral-500 text-sm mt-5 max-w-sm">
+          Luxury streetwear for people who believe less can say more.
+        </p>
+
+      </div>
+
+      <div>
+
+        <h3 class="text-xs tracking-widest uppercase mb-5">
+          Store
+        </h3>
+
+        <ul class="space-y-3 text-xs uppercase tracking-wider text-neutral-500">
+          <li><a href="#collection" class="hover:text-white">Shop</a></li>
+          <li><a href="#collection" class="hover:text-white">New Drop</a></li>
+          <li><a href="#" class="hover:text-white">Size Guide</a></li>
+        </ul>
+
+      </div>
+
+      <div>
+
+        <h3 class="text-xs tracking-widest uppercase mb-5">
+          Help
+        </h3>
+
+        <ul class="space-y-3 text-xs uppercase tracking-wider text-neutral-500">
+          <li><a href="#" class="hover:text-white">Shipping</a></li>
+          <li><a href="#" class="hover:text-white">Returns</a></li>
+          <li><a href="mailto:hello@simplistic.store" class="hover:text-white">Contact</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="border-t border-neutral-900 mt-14 pt-8 flex flex-col md:flex-row justify-between gap-3 text-[10px] uppercase tracking-widest text-neutral-600">
+
+      <p>© 2026 simplistic. All rights reserved.</p>
+
+      <p>Designed for the minimalists.</p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- ================= CART OVERLAY ================= -->
+
+<div
+  id="cart-overlay"
+  onclick="closeCart()"
+  class="fixed inset-0 bg-black/70 z-[60] hidden">
+</div>
+
+
+<!-- ================= CART ================= -->
+
+<aside
+  id="cart"
+  class="cart-panel fixed top-0 right-0 h-full w-full sm:w-[430px] bg-neutral-950 z-[70] translate-x-full border-l border-white/10 flex flex-col">
+
+  <div class="p-6 border-b border-white/10 flex justify-between items-center">
+
+    <h2 class="font-bold uppercase tracking-widest">
+      Your Cart
+    </h2>
+
+    <button onclick="closeCart()" class="text-2xl">
+      ×
+    </button>
+
+  </div>
+
+  <div id="cart-items" class="flex-1 overflow-y-auto p-6"></div>
+
+  <div class="border-t border-white/10 p-6">
+
+    <div class="flex justify-between mb-5">
+      <span class="text-sm text-neutral-500">Subtotal</span>
+      <span id="cart-total" class="font-bold">$0</span>
+    </div>
+
+    <button
+      onclick="checkout()"
+      class="w-full bg-white text-black py-4 text-xs uppercase tracking-widest font-bold hover:bg-neutral-300">
+      Checkout
+    </button>
+
+    <p class="text-[10px] text-neutral-600 text-center mt-4">
+      Shipping and taxes calculated at checkout.
+    </p>
+
+  </div>
+
+</aside>
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div
+  id="product-modal"
+  class="modal fixed inset-0 z-[80] hidden bg-black/80 p-5 flex items-center justify-center">
+
+  <div class="bg-neutral-950 border border-white/10 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+
+    <div class="grid md:grid-cols-2">
+
+      <img id="modal-image" class="w-full h-full min-h-[400px] object-cover">
+
+      <div class="p-8 md:p-12">
+
+        <button
+          onclick="closeProduct()"
+          class="float-right text-2xl">
+          ×
+        </button>
+
+        <p id="modal-category"
+          class="text-xs uppercase tracking-widest text-neutral-500 mb-4">
+        </p>
+
+        <h2 id="modal-name"
+          class="text-3xl font-black uppercase mb-3">
+        </h2>
+
+        <p id="modal-price"
+          class="text-lg mb-8">
+        </p>
+
+        <p id="modal-description"
+          class="text-sm text-neutral-500 leading-relaxed mb-8">
+        </p>
+
+        <label class="text-xs uppercase tracking-widest text-neutral-500">
+          Select Size
+        </label>
+
+        <select
+          id="modal-size"
+          class="w-full bg-neutral-900 border border-neutral-800 p-4 mt-3 mb-6 text-sm">
+
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+
+        </select>
+
+        <button
+          onclick="addModalProduct()"
+          class="w-full bg-white text-black py-4 text-xs uppercase tracking-widest font-bold hover:bg-neutral-300">
+          Add to cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<div
+  id="checkout-modal"
+  class="fixed inset-0 z-[90] hidden bg-black/90 overflow-y-auto p-5">
+
+  <div class="max-w-2xl mx-auto bg-neutral-950 border border-white/10 p-8 md:p-12 my-10">
+
+    <div class="flex justify-between mb-10">
+
+      <h2 class="text-3xl font-black uppercase">
+        Checkout
+      </h2>
+
+      <button onclick="closeCheckout()" class="text-2xl">
+        ×
+      </button>
+
+    </div>
+
+    <form onsubmit="placeOrder(event)" class="space-y-6">
+
+      <div>
+        <label class="text-xs uppercase tracking-widest text-neutral-500">
+          Full Name
+        </label>
+
+        <input
+          required
+          type="text"
+          class="w-full bg-neutral-900 border border-neutral-800 p-4 mt-2"
+          placeholder="Your name">
+      </div>
+
+      <div>
+        <label class="text-xs uppercase tracking-widest text-neutral-500">
+          Email
+        </label>
+
+        <input
+          required
+          type="email"
+          class="w-full bg-neutral-900 border border-neutral-800 p-4 mt-2"
+          placeholder="you@example.com">
+      </div>
+
+      <div>
+        <label class="text-xs uppercase tracking-widest text-neutral-500">
+          Delivery Address
+        </label>
+
+        <textarea
+          required
+          rows="4"
+          class="w-full bg-neutral-900 border border-neutral-800 p-4 mt-2"
+          placeholder="Your delivery address"></textarea>
+      </div>
+
+      <div>
+        <label class="text-xs uppercase tracking-widest text-neutral-500">
+          Payment Method
+        </label>
+
+        <select
+          class="w-full bg-neutral-900 border border-neutral-800 p-4 mt-2">
+
+          <option>Card</option>
+          <option>PayPal</option>
+          <option>Cash on Delivery</option>
+
+        </select>
+      </div>
+
+      <div class="border-t border-white/10 pt-6">
+
+        <div class="flex justify-between mb-5">
+          <span class="text-neutral-500">Order Total</span>
+          <span id="checkout-total" class="font-bold"></span>
         </div>
-    </header>
 
-    <section class="relative h-screen flex items-center justify-center bg-neutral-950">
-        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center"></div>
-        
-        <div class="relative z-10 text-center px-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 mb-4">Drop 01 / Essentials</p>
-            <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-8">
-                LESS IS LOUD.
-            </h1>
-            <a href="#collection" class="inline-block border border-white text-black bg-white hover:bg-transparent hover:text-white transition px-8 py-4 text-xs tracking-[0.2em] uppercase font-bold">
-                Shop the Drop
-            </a>
+        <button
+          class="w-full bg-white text-black py-4 text-xs uppercase tracking-widest font-bold">
+          Place Order
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const products = [
+
+  {
+    id: 1,
+    name: "Heavyweight Hoodie",
+    category: "outerwear",
+    price: 180,
+    color: "Matte Black / 500 GSM",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=85",
+    description: "A heavyweight 500 GSM hoodie engineered for structure, comfort and everyday wear."
+  },
+
+  {
+    id: 2,
+    name: "Box Fit Tee",
+    category: "tops",
+    price: 85,
+    color: "Off-White / Organic Cotton",
+    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=85",
+    description: "A relaxed box-fit silhouette made from premium heavyweight cotton."
+  },
+
+  {
+    id: 3,
+    name: "Utility Cargo",
+    category: "bottoms",
+    price: 210,
+    color: "Midnight / Water Resistant",
+    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=85",
+    description: "Technical utility trousers featuring a relaxed architectural silhouette."
+  },
+
+  {
+    id: 4,
+    name: "Essential Sweatshirt",
+    category: "tops",
+    price: 120,
+    color: "Charcoal / Heavyweight Cotton",
+    image: "https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=800&q=85",
+    description: "Minimal heavyweight sweatshirt designed for effortless everyday layering."
+  },
+
+  {
+    id: 5,
+    name: "Relaxed Trousers",
+    category: "bottoms",
+    price: 145,
+    color: "Black / Cotton Twill",
+    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=85",
+    description: "Relaxed trousers with a clean silhouette and premium cotton construction."
+  },
+
+  {
+    id: 6,
+    name: "Minimal Overshirt",
+    category: "outerwear",
+    price: 165,
+    color: "Stone / Technical Fabric",
+    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=85",
+    description: "A versatile overshirt designed for layering between seasons."
+  },
+
+  {
+    id: 7,
+    name: "Signature Tee",
+    category: "tops",
+    price: 75,
+    color: "Black / 280 GSM",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=800&q=85",
+    description: "A clean everyday tee with a premium heavyweight construction."
+  },
+
+  {
+    id: 8,
+    name: "Wide Leg Denim",
+    category: "bottoms",
+    price: 195,
+    color: "Washed Black / Denim",
+    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=85",
+    description: "Wide-leg denim with a modern relaxed cut and washed finish."
+  }
+
+];
+
+
+let cart = JSON.parse(localStorage.getItem("simplisticCart")) || [];
+
+let selectedProduct = null;
+
+
+// ================= DISPLAY PRODUCTS =================
+
+function displayProducts(category = "all") {
+
+  const container = document.getElementById("products");
+
+  const filtered = category === "all"
+    ? products
+    : products.filter(product => product.category === category);
+
+  container.innerHTML = filtered.map(product => `
+
+    <article class="product-card group cursor-pointer fade">
+
+      <div
+        onclick="openProduct(${product.id})"
+        class="aspect-[3/4] bg-neutral-900 overflow-hidden relative">
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          class="w-full h-full object-cover">
+
+        <button
+          onclick="event.stopPropagation(); quickAdd(${product.id})"
+          class="absolute bottom-4 left-4 right-4 bg-white text-black py-3 text-[10px] uppercase tracking-widest font-bold opacity-0 group-hover:opacity-100 transition">
+          Quick Add
+        </button>
+
+      </div>
+
+      <div class="flex justify-between mt-4">
+
+        <div>
+
+          <h3 class="font-bold text-xs uppercase tracking-wider">
+            ${product.name}
+          </h3>
+
+          <p class="text-[10px] uppercase tracking-wider text-neutral-600 mt-2">
+            ${product.color}
+          </p>
+
         </div>
-    </section>
 
-    <section id="collection" class="max-w-7xl mx-auto px-6 py-24">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Curated Pieces</p>
-                <h2 class="text-3xl font-bold uppercase tracking-tight">Drop 01</h2>
-            </div>
-            <a href="#" class="text-xs uppercase tracking-widest border-b border-white pb-1 hover:text-neutral-400 hover:border-neutral-400 transition">View All</a>
+        <p class="text-sm">
+          $${product.price}
+        </p>
+
+      </div>
+
+    </article>
+
+  `).join("");
+}
+
+
+// ================= FILTER =================
+
+function filterProducts(category) {
+  displayProducts(category);
+}
+
+
+// ================= PRODUCT MODAL =================
+
+function openProduct(id) {
+
+  selectedProduct = products.find(product => product.id === id);
+
+  document.getElementById("modal-image").src = selectedProduct.image;
+
+  document.getElementById("modal-name").textContent =
+    selectedProduct.name;
+
+  document.getElementById("modal-category").textContent =
+    selectedProduct.category;
+
+  document.getElementById("modal-price").textContent =
+    "$" + selectedProduct.price;
+
+  document.getElementById("modal-description").textContent =
+    selectedProduct.description;
+
+  document.getElementById("product-modal").classList.remove("hidden");
+
+  document.body.style.overflow = "hidden";
+}
+
+
+function closeProduct() {
+
+  document.getElementById("product-modal").classList.add("hidden");
+
+  document.body.style.overflow = "";
+}
+
+
+function addModalProduct() {
+
+  const size = document.getElementById("modal-size").value;
+
+  addToCart(selectedProduct.id, size);
+
+  closeProduct();
+
+  openCart();
+}
+
+
+// ================= CART =================
+
+function quickAdd(id) {
+
+  addToCart(id, "M");
+
+  openCart();
+}
+
+
+function addToCart(id, size = "M") {
+
+  const product = products.find(product => product.id === id);
+
+  const existing = cart.find(
+    item => item.id === id && item.size === size
+  );
+
+  if (existing) {
+
+    existing.quantity++;
+
+  } else {
+
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: size,
+      quantity: 1
+    });
+
+  }
+
+  saveCart();
+  renderCart();
+}
+
+
+function removeFromCart(index) {
+
+  cart.splice(index, 1);
+
+  saveCart();
+  renderCart();
+}
+
+
+function changeQuantity(index, amount) {
+
+  cart[index].quantity += amount;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  saveCart();
+  renderCart();
+}
+
+
+function saveCart() {
+
+  localStorage.setItem(
+    "simplisticCart",
+    JSON.stringify(cart)
+  );
+
+}
+
+
+function renderCart() {
+
+  const container = document.getElementById("cart-items");
+
+  if (cart.length === 0) {
+
+    container.innerHTML = `
+      <div class="text-center py-20">
+        <p class="text-neutral-500 text-sm">
+          Your cart is empty.
+        </p>
+
+        <button
+          onclick="closeCart()"
+          class="mt-5 border border-white px-6 py-3 text-xs uppercase tracking-widest">
+          Continue Shopping
+        </button>
+      </div>
+    `;
+
+  } else {
+
+    container.innerHTML = cart.map((item, index) => `
+
+      <div class="flex gap-4 border-b border-white/10 pb-5 mb-5">
+
+        <img
+          src="${item.image}"
+          class="w-24 h-28 object-cover">
+
+        <div class="flex-1">
+
+          <div class="flex justify-between">
+
+            <h3 class="text-xs font-bold uppercase">
+              ${item.name}
+            </h3>
+
+            <button
+              onclick="removeFromCart(${index})"
+              class="text-neutral-600 hover:text-white">
+              ×
+            </button>
+
+          </div>
+
+          <p class="text-xs text-neutral-500 mt-2">
+            Size: ${item.size}
+          </p>
+
+          <p class="text-sm mt-3">
+            $${item.price}
+          </p>
+
+          <div class="flex items-center gap-4 mt-4">
+
+            <button
+              onclick="changeQuantity(${index}, -1)"
+              class="border border-neutral-700 w-7 h-7">
+              −
+            </button>
+
+            <span class="text-xs">
+              ${item.quantity}
+            </span>
+
+            <button
+              onclick="changeQuantity(${index}, 1)"
+              class="border border-neutral-700 w-7 h-7">
+              +
+            </button>
+
+          </div>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="group cursor-pointer">
-                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
-                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Heavyweight Hoodie" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
-                    <span class="absolute top-4 left-4 bg-black text-[10px] tracking-widest uppercase px-3 py-1 font-bold">Sold Out</span>
-                </div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold uppercase tracking-wide text-sm">01. Heavyweight Hoodie</h3>
-                        <p class="text-xs text-neutral-500 uppercase mt-1">Matte Black / 500 GSM</p>
-                    </div>
-                    <p class="text-sm font-light">$180</p>
-                </div>
-            </div>
+      </div>
 
-            <div class="group cursor-pointer">
-                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
-                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Minimalist Tee" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
-                </div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold uppercase tracking-wide text-sm">02. Box Fit Tee</h3>
-                        <p class="text-xs text-neutral-500 uppercase mt-1">Off-White / Organic Cotton</p>
-                    </div>
-                    <p class="text-sm font-light">$85</p>
-                </div>
-            </div>
+    `).join("");
 
-            <div class="group cursor-pointer">
-                <div class="aspect-[3/4] w-full bg-neutral-900 overflow-hidden mb-4 relative">
-                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80" alt="Cargo Pants" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
-                </div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-bold uppercase tracking-wide text-sm">03. Utility Cargo</h3>
-                        <p class="text-xs text-neutral-500 uppercase mt-1">Midnight / Water Resistant</p>
-                    </div>
-                    <p class="text-sm font-light">$210</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  }
 
-    <section id="about" class="bg-neutral-950 py-24 border-t border-b border-white/5">
-        <div class="max-w-4xl mx-auto text-center px-6">
-            <span class="text-xs uppercase tracking-[0.3em] text-neutral-500">Philosophy</span>
-            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight my-6">Radical Simplicity.</h2>
-            <p class="text-neutral-400 font-light leading-relaxed text-sm md:text-base max-w-2xl mx-auto">
-                We believe streetwear has become too crowded. Too noisy. **simplistic** is our rebellion against the chaos. We focus purely on aggressive silhouettes, meticulous fabric sourcing, and architectural cuts. No massive logos. No gimmicks. Just pure form.
-            </p>
-        </div>
-    </section>
 
-    <footer class="max-w-7xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div>
-                <h3 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Stay Notified</h3>
-                <p class="text-sm font-light text-neutral-400 mb-6">Receive priority access to limited edition drops.</p>
-                <form class="flex max-w-md">
-                    <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-neutral-900 border border-neutral-800 text-white px-4 py-3 text-xs tracking-widest uppercase focus:outline-none focus:border-white w-full">
-                    <button type="submit" class="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition">Join</button>
-                </form>
-            </div>
-            <div class="flex justify-start md:justify-end space-x-16">
-                <div>
-                    <h4 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Support</h4>
-                    <ul class="space-y-2 text-xs tracking-wider uppercase text-neutral-400">
-                        <li><a href="#" class="hover:text-white transition">Shipping</a></li>
-                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Social</h4>
-                    <ul class="space-y-2 text-xs tracking-wider uppercase text-neutral-400">
-                        <li><a href="#" class="hover:text-white transition">Instagram</a></li>
-                        <li><a href="#" class="hover:text-white transition">TikTok</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between text-[10px] tracking-widest uppercase text-neutral-600">
-            <p>&copy; 2026 simplistic. All rights reserved.</p>
-            <p>Designed for the minimalists.</p>
-        </div>
-    </footer>
+  const count = cart.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  const total = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+
+  document.getElementById("cart-count").textContent = count;
+
+  document.getElementById("cart-total").textContent =
+    "$" + total.toFixed(2);
+
+}
+
+
+// ================= OPEN/CLOSE CART =================
+
+function openCart() {
+
+  document.getElementById("cart").classList.remove("translate-x-full");
+
+  document.getElementById("cart-overlay").classList.remove("hidden");
+
+}
+
+
+function closeCart() {
+
+  document.getElementById("cart").classList.add("translate-x-full");
+
+  document.getElementById("cart-overlay").classList.add("hidden");
+
+}
+
+
+// ================= CHECKOUT =================
+
+function checkout() {
+
+  if (cart.length === 0) {
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  document.getElementById("checkout-total").textContent =
+    "$" + total.toFixed(2);
+
+  closeCart();
+
+  document.getElementById("checkout-modal").classList.remove("hidden");
+
+}
+
+
+function closeCheckout() {
+
+  document.getElementById("checkout-modal").classList.add("hidden");
+
+}
+
+
+function placeOrder(event) {
+
+  event.preventDefault();
+
+  alert(
+    "Thank you for your order! This demo checkout is working, but real payment processing has not been connected yet."
+  );
+
+  cart = [];
+
+  saveCart();
+
+  renderCart();
+
+  closeCheckout();
+
+}
+
+
+// ================= NEWSLETTER =================
+
+function subscribe(event) {
+
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+
+  alert(
+    "You're on the list! Confirmation sent to " + email
+  );
+
+  document.getElementById("email").value = "";
+
+}
+
+
+// ================= INITIALIZE =================
+
+displayProducts();
+
+renderCart();
+
+</script>
 
 </body>
 </html>
+```
